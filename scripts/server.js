@@ -21,7 +21,7 @@ app.use('*', (req, res) => {
 const server = app.listen(PORT, () =>
     console.log(`✅  Server started: http://${HOST}:${PORT}`)
 );
-const socketIO = require('socket.io')(server);
+// const socketIO = require('socket.io')(server);
 //const io = socketIO(app);
 const io = require('socket.io')(server);
 
@@ -29,5 +29,24 @@ io.on('connection', (socket) => {
     console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 
-    socket.on('user_join', (data) => console.log('data is ' + data.message));
+    socket.on('user_join', (data) => {
+        console.log('user Joined ' + data.message);
+        socket.broadcast.emit('serverMessage', {
+            message: 'Welcome User' + data.message
+        });
+
+        console.log('message emmited from server');
+    });
+
+    socket.on('chat_message', (data) => {
+        console.log('data is ' + data);
+        socket.broadcast.emit('chat_message' + data.roomId, {
+            currentMessage: data.currentMessage,
+            time: data.time,
+            ismy: false,
+            username: data.username,
+            roomId: data.roomId
+        });
+        console.log('message emmited from server');
+    });
 });
