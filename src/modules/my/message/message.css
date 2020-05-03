@@ -1,0 +1,21 @@
+.messageBox {
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.user {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+}
+
+.message {
+    /* margin-top: 10px; */
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    word-wrap: break-word;
+}

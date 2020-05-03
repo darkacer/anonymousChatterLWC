@@ -87,6 +87,6 @@ export default class App extends LightningElement {
     }
 
     scrollToBottom(messages) {
-        messages.scrollTop = messages.scrollHeight + 10;
+        messages.scrollTop = messages.scrollHeight + 200;
     }
 }

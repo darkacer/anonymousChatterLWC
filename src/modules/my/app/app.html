@@ -8,14 +8,12 @@
 
     <div>
         <div class="messages">
-            <ul>
-                <template for:each={messages} for:item="message">
-                    <ul key={message.time}>
-                        {message.currentMessage}, {message.username} ----
-                        {message.ismy}
-                    </ul>
-                </template>
-            </ul>
+            <template for:each={messages} for:item="message">
+                <my-message
+                    key={message.time}
+                    messagedata={message}
+                ></my-message>
+            </template>
         </div>
 
         <div id="typing"></div>
