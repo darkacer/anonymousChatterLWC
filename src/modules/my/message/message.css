@@ -5,6 +5,14 @@
     border-radius: 10px;
 }
 
+.my {
+    margin-left: 45%;
+}
+
+.notmy {
+    margin-right: 45%;
+}
+
 .user {
     margin-top: 10px;
     margin-left: 10px;

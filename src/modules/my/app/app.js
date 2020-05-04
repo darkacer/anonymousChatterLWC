@@ -1,7 +1,7 @@
 /*eslint no-alert: "error"*/
 import { LightningElement, track } from 'lwc';
 import io from 'socket.io-client';
-import { getUrlVars, insertParam } from 'my/util';
+import { getUrlVars, insertParam, getName } from 'my/util';
 
 export default class App extends LightningElement {
     userName = '';
@@ -11,6 +11,7 @@ export default class App extends LightningElement {
 
     connectedCallback() {
         const socket = io();
+
         if (typeof getUrlVars().roomId === 'undefined') {
             // eslint-disable-next-line no-alert
             this.roomId = prompt(
@@ -21,7 +22,7 @@ export default class App extends LightningElement {
             console.log('this roomId ' + this.roomId);
         } else {
             // eslint-disable-next-line no-alert
-            this.userName = prompt('Please enter a nickname: ', ''); // eslint-disable-line no-alert
+            this.userName = prompt('Please enter a nickname: ', getName()); // eslint-disable-line no-alert
             this.roomId = getUrlVars().roomId;
             console.log('this roomId ' + this.roomId);
         }
@@ -69,24 +70,26 @@ export default class App extends LightningElement {
         socket.on('chat_message' + this.roomId, (data) => {
             if (data.username !== this.userName) {
                 this.messages.push(data);
-                console.log('data => ' + JSON.stringify(this.messages));
             }
             const messages = this.template.querySelector('.messages');
             console.log(
-                'scrol ' +
-                    messages.scrollTop +
-                    messages.clientHeight +
-                    messages.scrollHeight
+                'scrol ',
+                messages.scrollTop,
+                messages.clientHeight,
+                messages.scrollHeight
             );
+            console.log('data => ' + JSON.stringify(this.messages));
             let shouldScroll =
                 messages.scrollTop + messages.clientHeight ===
                 messages.scrollHeight;
             console.log(shouldScroll, 'joker');
-            if (!shouldScroll) this.scrollToBottom(messages);
+
+            this.scrollToBottom(messages);
         });
     }
 
     scrollToBottom(messages) {
-        messages.scrollTop = messages.scrollHeight + 200;
+        messages.scrollTop = messages.scrollHeight + 66;
+        console.log('we scolled ', messages.scrollTop);
     }
 }

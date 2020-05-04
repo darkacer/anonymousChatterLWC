@@ -26,7 +26,7 @@ const server = app.listen(PORT, () =>
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-    console.log('Client connected');
+    //console.log('Client connected');
     socket.on('disconnect', () => console.log('Client disconnected'));
 
     socket.on('user_join', (data) => {
@@ -35,11 +35,13 @@ io.on('connection', (socket) => {
             message: 'Welcome User' + data.message
         });
 
-        console.log('message emmited from server');
+        //console.log('message emmited from server');
     });
 
     socket.on('chat_message', (data) => {
-        console.log('data is ' + data);
+        console.log(
+            'USER: ' + data.username + ' MESSAGE: ' + data.currentMessage
+        );
         socket.broadcast.emit('chat_message' + data.roomId, {
             currentMessage: data.currentMessage,
             time: data.time,
@@ -47,6 +49,6 @@ io.on('connection', (socket) => {
             username: data.username,
             roomId: data.roomId
         });
-        console.log('message emmited from server');
+        //console.log('message emmited from server');
     });
 });
