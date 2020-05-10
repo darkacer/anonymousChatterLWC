@@ -9,3 +9,9 @@ Start simple by running `yarn watch` (or `npm run watch`, if you set up the proj
 The source files are located in the [`src`](./src) folder. All web components are within the [`src/modules`](./src/modules) folder. The folder hierarchy also represents the naming structure of the web components.
 
 Find more information on the main repo on [GitHub](https://github.com/muenzpraeger/create-lwc-app).
+
+Get the code on local machine
+run --
+npm init
+npm run build
+npm run serve

@@ -1,6 +1,9 @@
 /*eslint no-alert: "error"*/
 import { LightningElement, track } from 'lwc';
 import io from 'socket.io-client';
+//import fs from 'fs-es6';
+//import path from 'path';
+//import ss from 'socket.io-stream';
 import { getUrlVars, insertParam, getName } from 'my/util';
 
 export default class App extends LightningElement {
@@ -34,6 +37,28 @@ export default class App extends LightningElement {
         this.setUpListners();
     }
 
+    attachImage() {
+        console.log('hi u wanna attach image');
+    }
+
+    uploadFile() {
+        const socket = io();
+        // const reader = new FileReader();
+        const input = this.template.querySelector('input[type=file]');
+        const file = input.files[0];
+
+        let msg = {
+            currentMessage: file,
+            time: new Date().getTime(),
+            ismy: true,
+            username: this.userName,
+            roomId: this.roomId,
+            type: 'image'
+        };
+
+        socket.emit('image_upload', msg);
+    }
+
     typing(event) {
         this.currentMessage = event.target.value;
         // console.log('msg', event.which)
@@ -52,7 +77,8 @@ export default class App extends LightningElement {
             time: new Date().getTime(),
             ismy: true,
             username: this.userName,
-            roomId: this.roomId
+            roomId: this.roomId,
+            type: 'text'
         };
         socket.emit('chat_message', msg);
         console.log('someone clicked!!', this.currentMessage);
@@ -62,6 +88,7 @@ export default class App extends LightningElement {
 
     setUpListners() {
         const socket = io();
+        // var imgChunks = [];
 
         socket.on('serverMessage', (data) => {
             console.log('server replied WITH' + data.message);
@@ -85,6 +112,16 @@ export default class App extends LightningElement {
             console.log(shouldScroll, 'joker');
 
             this.scrollToBottom(messages);
+        });
+
+        socket.on('broadcast_image' + this.roomId, (data) => {
+            var img = this.template.querySelector('.showImg');
+
+            var blob = new Blob([data.currentMessage], { type: 'image/jpeg' });
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL(blob);
+
+            img.setAttribute('src', imageUrl);
         });
     }
 

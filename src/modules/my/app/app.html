@@ -16,9 +16,16 @@
             </template>
         </div>
 
-        <div id="typing"></div>
-        <br />
+        <div id="typing"><img class="showImg" /></div>
         <div class="footer">
+            <input
+                type="file"
+                id="img"
+                name="img"
+                accept="image/*"
+                onchange={uploadFile}
+                multiple
+            />
             <input
                 type="text"
                 class="input"

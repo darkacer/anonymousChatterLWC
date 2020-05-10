@@ -3,6 +3,8 @@ const compression = require('compression');
 const helmet = require('helmet');
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const ss = require('socket.io-stream');
 
 const app = express();
 app.use(helmet());
@@ -21,8 +23,7 @@ app.use('*', (req, res) => {
 const server = app.listen(PORT, () =>
     console.log(`✅  Server started: http://${HOST}:${PORT}`)
 );
-// const socketIO = require('socket.io')(server);
-//const io = socketIO(app);
+
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
@@ -50,5 +51,17 @@ io.on('connection', (socket) => {
             roomId: data.roomId
         });
         //console.log('message emmited from server');
+    });
+
+    socket.on('image_upload', (data) => {
+        console.log(data.username, 'Sent an image');
+
+        socket.broadcast.emit('broadcast_image' + data.roomId, {
+            currentMessage: data.currentMessage,
+            time: data.time,
+            ismy: false,
+            username: data.username,
+            roomId: data.roomId
+        });
     });
 });
