@@ -115,13 +115,16 @@ export default class App extends LightningElement {
         });
 
         socket.on('broadcast_image' + this.roomId, (data) => {
-            var img = this.template.querySelector('.showImg');
+            // var img = this.template.querySelector('.showImg');
 
-            var blob = new Blob([data.currentMessage], { type: 'image/jpeg' });
-            var urlCreator = window.URL || window.webkitURL;
-            var imageUrl = urlCreator.createObjectURL(blob);
+            // var blob = new Blob([data.currentMessage], { type: 'image/jpeg' });
+            // var urlCreator = window.URL || window.webkitURL;
+            // var imageUrl = urlCreator.createObjectURL(blob);
 
-            img.setAttribute('src', imageUrl);
+            // img.setAttribute('src', imageUrl);
+            //if (data.username !== this.userName) {
+            this.messages.push(data);
+            //}
         });
     }
 

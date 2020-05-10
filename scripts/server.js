@@ -48,7 +48,8 @@ io.on('connection', (socket) => {
             time: data.time,
             ismy: false,
             username: data.username,
-            roomId: data.roomId
+            roomId: data.roomId,
+            type: data.type
         });
         //console.log('message emmited from server');
     });
@@ -61,7 +62,8 @@ io.on('connection', (socket) => {
             time: data.time,
             ismy: false,
             username: data.username,
-            roomId: data.roomId
+            roomId: data.roomId,
+            type: 'image'
         });
     });
 });

@@ -6,39 +6,45 @@
         <!-- <my-greeting speed="fast"></my-greeting> -->
     </div>
 
-    <div>
-        <div class="messages">
-            <template for:each={messages} for:item="message">
-                <my-message
-                    key={message.time}
-                    messagedata={message}
-                ></my-message>
-            </template>
-        </div>
-
-        <div id="typing"><img class="showImg" /></div>
-        <div class="footer">
-            <input
-                type="file"
-                id="img"
-                name="img"
-                accept="image/*"
-                onchange={uploadFile}
-                multiple
-            />
-            <input
-                type="text"
-                class="input"
-                autocomplete="off"
-                autofocus
-                onkeypress={typing}
-                onkeydown={typing}
-                onkeyup={typing}
-                value={currentMessage}
-                placeholder="Type Something ..."
-            />
-
-            <button class="sendButton" onclick={handleSend}>Send</button>
-        </div>
+    <!-- <div> -->
+    <div class="messages">
+        <template for:each={messages} for:item="message">
+            <my-message
+                key={message.time}
+                messagedata={message}
+                type={message.type}
+            ></my-message>
+        </template>
     </div>
+
+    <div id="typing"><img class="showImg" /></div>
+    <div class="footer">
+        <input
+            type="file"
+            name="file"
+            id="file"
+            class="inputfile"
+            accept="image/*"
+            onchange={uploadFile}
+            multiple
+        />
+        <label for="file">
+            <img src="resources/attach.png" height="35px" width="35px" />
+        </label>
+
+        <input
+            type="text"
+            class="input"
+            autocomplete="off"
+            autofocus
+            onkeypress={typing}
+            onkeydown={typing}
+            onkeyup={typing}
+            value={currentMessage}
+            placeholder="Type Something ..."
+        />
+
+        <button class="sendButton" onclick={handleSend}>Send</button>
+    </div>
+    <!-- </div> -->
 </template>

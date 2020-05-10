@@ -1,10 +1,18 @@
 <template>
-    <div class="messageBox">
-        <div class="user">
-            {messagedata.username}
+    <template if:true={isMessage}>
+        <div class="messageBox">
+            <div class="user">
+                {messagedata.username}
+            </div>
+            <div class="message">
+                {messagedata.currentMessage}
+            </div>
         </div>
-        <div class="message">
-            {messagedata.currentMessage}
+    </template>
+
+    <template if:true={isImage}>
+        <div class="imageBox">
+            <img class="showImg" />
         </div>
-    </div>
+    </template>
 </template>
