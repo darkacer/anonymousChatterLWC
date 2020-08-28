@@ -15,3 +15,7 @@ run --
 npm init
 npm run build
 npm run serve
+
+
+for local development use 
+npm run serve
